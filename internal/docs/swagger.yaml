@@ -1,0 +1,29 @@
+basePath: /api/v1
+definitions:
+  controllers.PingResponse:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a simple API to learn Golang
+  title: Learning Golang API
+  version: "1.0"
+paths:
+  /healthcheck/ping:
+    get:
+      consumes:
+      - '"*/*"'
+      description: ping the server
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.PingResponse'
+      summary: ping the server
+      tags:
+      - healthcheck
+swagger: "2.0"

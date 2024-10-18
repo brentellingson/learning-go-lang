@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  model.PingResponse:
+  ping.Response:
     properties:
       message:
         type: string
@@ -11,7 +11,7 @@ info:
   title: Learning Golang API
   version: "1.0"
 paths:
-  /healthcheck/ping:
+  /ping:
     get:
       consumes:
       - '"*/*"'
@@ -22,7 +22,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.PingResponse'
+            $ref: '#/definitions/ping.Response'
       summary: ping the server
       tags:
       - healthcheck

@@ -8,7 +8,7 @@
     },
     "basePath": "/api/v1",
     "paths": {
-        "/healthcheck/ping": {
+        "/ping": {
             "get": {
                 "description": "ping the server",
                 "consumes": [
@@ -25,7 +25,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.PingResponse"
+                            "$ref": "#/definitions/ping.Response"
                         }
                     }
                 }
@@ -33,7 +33,7 @@
         }
     },
     "definitions": {
-        "model.PingResponse": {
+        "ping.Response": {
             "type": "object",
             "properties": {
                 "message": {

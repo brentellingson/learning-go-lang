@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/healthcheck/ping": {
+        "/ping": {
             "get": {
                 "description": "ping the server",
                 "consumes": [
@@ -32,7 +32,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.PingResponse"
+                            "$ref": "#/definitions/ping.Response"
                         }
                     }
                 }
@@ -40,7 +40,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "model.PingResponse": {
+        "ping.Response": {
             "type": "object",
             "properties": {
                 "message": {

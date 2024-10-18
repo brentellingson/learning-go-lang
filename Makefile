@@ -1,22 +1,23 @@
 .PHONY: build run tvet tidy fmt clean
 
-build: vet
+build: lint
 	go build
 
-run: vet
+run: lint
 	go run ./cmd/server
 
-test: vet
+test: lint
 	go test ./...
 
-vet: tidy
+lint: fmt
 	go vet ./...
-
-tidy: fmt
-	go mod tidy
+	staticcheck ./...
+	revive -formatter friendly ./...
 
 fmt: swag
+	go mod tidy
 	go fmt ./...
+	goimports -l -w .
 
 swag:
 	swag init --generalInfo ./cmd/server/main.go --output ./internal/docs

@@ -1,4 +1,4 @@
-module github.com/brentellingson/learning-go-lang-api
+module github.com/brentellingson/learning-golang-api
 
 go 1.23.2
 

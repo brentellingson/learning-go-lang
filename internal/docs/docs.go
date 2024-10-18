@@ -32,7 +32,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/controllers.PingResponse"
+                            "$ref": "#/definitions/model.PingResponse"
                         }
                     }
                 }
@@ -40,7 +40,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "controllers.PingResponse": {
+        "model.PingResponse": {
             "type": "object",
             "properties": {
                 "message": {

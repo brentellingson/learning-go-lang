@@ -1,3 +1,3 @@
-// Description: This is the main package for my implementation of the learninggolang project.
+// Package learninggolangapi is the main package for my walkthrough of the learning-golang-api project.
 // see: https://learninggolang.com/
-package learninggolang
+package learninggolangapi

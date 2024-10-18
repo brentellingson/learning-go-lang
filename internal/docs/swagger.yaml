@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  controllers.PingResponse:
+  model.PingResponse:
     properties:
       message:
         type: string
@@ -22,7 +22,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/controllers.PingResponse'
+            $ref: '#/definitions/model.PingResponse'
       summary: ping the server
       tags:
       - healthcheck

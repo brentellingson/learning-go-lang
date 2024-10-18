@@ -25,7 +25,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/controllers.PingResponse"
+                            "$ref": "#/definitions/model.PingResponse"
                         }
                     }
                 }
@@ -33,7 +33,7 @@
         }
     },
     "definitions": {
-        "controllers.PingResponse": {
+        "model.PingResponse": {
             "type": "object",
             "properties": {
                 "message": {

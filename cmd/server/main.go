@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/brentellingson/learning-go-lang/internal/controllers"
-	_ "github.com/brentellingson/learning-go-lang/internal/docs"
+	"github.com/brentellingson/learning-go-lang-api/internal/controllers"
+	_ "github.com/brentellingson/learning-go-lang-api/internal/docs"
 	"github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
 )

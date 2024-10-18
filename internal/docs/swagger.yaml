@@ -5,6 +5,11 @@ definitions:
       message:
         type: string
     type: object
+  programming.Response:
+    properties:
+      uuid:
+        type: string
+    type: object
 info:
   contact: {}
   description: This is a simple API to learn Golang
@@ -26,4 +31,24 @@ paths:
       summary: ping the server
       tags:
       - healthcheck
+  /programming/uuid:
+    post:
+      consumes:
+      - '"*/*"'
+      description: create a new UUID
+      parameters:
+      - description: whether to exclude hyphens in the UUID
+        in: query
+        name: no-hyphens
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/programming.Response'
+      summary: create a new UUID
+      tags:
+      - programming
 swagger: "2.0"

@@ -6,6 +6,7 @@ import (
 
 	"github.com/brentellingson/learning-golang-api/internal/docs"
 	"github.com/brentellingson/learning-golang-api/internal/ping"
+	"github.com/brentellingson/learning-golang-api/internal/programming"
 )
 
 // @Title			Learning Golang API
@@ -14,6 +15,7 @@ import (
 // @BasePath		/api/v1
 func main() {
 	ping := ping.NewController()
+	programming := programming.NewController()
 
 	router := gin.Default()
 
@@ -21,6 +23,7 @@ func main() {
 	v1 := router.Group("/api/v1/")
 	{
 		ping.AddRoutes(v1)
+		programming.AddRoutes(v1)
 	}
 
 	router.Run(":8080")

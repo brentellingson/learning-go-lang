@@ -37,6 +37,37 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/programming/uuid": {
+            "post": {
+                "description": "create a new UUID",
+                "consumes": [
+                    "\"*/*\""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "programming"
+                ],
+                "summary": "create a new UUID",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "whether to exclude hyphens in the UUID",
+                        "name": "no-hyphens",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/programming.Response"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -44,6 +75,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "programming.Response": {
+            "type": "object",
+            "properties": {
+                "uuid": {
                     "type": "string"
                 }
             }

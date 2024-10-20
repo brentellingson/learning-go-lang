@@ -9,17 +9,17 @@ run: lint
 test: lint
 	go test ./...
 
-lint: fmt
+lint: format
 	go vet ./...
 	staticcheck ./...
 	revive -formatter friendly ./...
 
-fmt: swag
+format: generate
 	go mod tidy
 	go fmt ./...
 	goimports -l -w .
 
-swag:
+generate:
 	swag init --generalInfo ./cmd/server/main.go --output ./internal/docs
 	swag fmt
 

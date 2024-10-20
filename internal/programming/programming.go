@@ -4,7 +4,6 @@ package programming
 import (
 	"net/http"
 
-	"github.com/brentellingson/learning-golang-lib/programming"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,12 +12,19 @@ type Response struct {
 	UUID string `json:"uuid"`
 }
 
+// Service provides the programming methods interface.
+type Service interface {
+	NewUUID(withoutHyphens bool) string
+}
+
 // Controller provides the implementation of the programming endpoints.
-type Controller struct{}
+type Controller struct {
+	svc Service
+}
 
 // NewController creates a new Programming controller.
-func NewController() *Controller {
-	return &Controller{}
+func NewController(svc Service) *Controller {
+	return &Controller{svc}
 }
 
 // AddRoutes adds the programming routes to the router.
@@ -42,6 +48,6 @@ func (p *Controller) AddRoutes(r *gin.RouterGroup) {
 func (p *Controller) PostUUID(c *gin.Context) {
 	withoutHyphens := c.DefaultQuery("no-hyphens", "false") == "true"
 
-	uuid := programming.NewUUID(withoutHyphens)
+	uuid := p.svc.NewUUID(withoutHyphens)
 	c.JSON(http.StatusOK, Response{UUID: uuid})
 }

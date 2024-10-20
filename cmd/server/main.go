@@ -7,6 +7,7 @@ import (
 	"github.com/brentellingson/learning-golang-api/internal/docs"
 	"github.com/brentellingson/learning-golang-api/internal/ping"
 	"github.com/brentellingson/learning-golang-api/internal/programming"
+	programmingLib "github.com/brentellingson/learning-golang-lib/programming"
 )
 
 // @Title			Learning Golang API
@@ -15,7 +16,7 @@ import (
 // @BasePath		/api/v1
 func main() {
 	ping := ping.NewController()
-	programming := programming.NewController()
+	programming := programming.NewController(programmingLib.NewService())
 
 	router := gin.Default()
 

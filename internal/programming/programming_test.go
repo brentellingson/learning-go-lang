@@ -9,14 +9,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+
+	programmingLib "github.com/brentellingson/learning-golang-lib/programming"
 )
 
 func TestPostUUID(t *testing.T) {
-	gin.SetMode(gin.TestMode)
-	router := gin.Default()
-	controller := NewController()
-	controller.AddRoutes(router.Group("/"))
-
 	tests := []struct {
 		name               string
 		queryParam         string
@@ -52,6 +49,11 @@ func TestPostUUID(t *testing.T) {
 			},
 		},
 	}
+
+	gin.SetMode(gin.TestMode)
+	router := gin.Default()
+	controller := NewController(programmingLib.NewService())
+	controller.AddRoutes(router.Group("/"))
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

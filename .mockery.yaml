@@ -1,0 +1,9 @@
+with-expecter: true
+dir: "{{.InterfaceDirRelative}}"
+filename: "mock_{{.InterfaceName | snakecase }}.go"
+inpackage: true
+
+packages:
+  github.com/brentellingson/learning-golang-api/internal/programming:
+    config:
+      all: true

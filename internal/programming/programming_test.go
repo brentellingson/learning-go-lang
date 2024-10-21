@@ -4,74 +4,78 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+)
 
-	programmingLib "github.com/brentellingson/learning-golang-lib/programming"
+const (
+	UUIDWithHyphens    = "1ce44be5-fe68-46f7-a153-51c1c91a4ae4"
+	UUIDWithoutHyphens = "1ce44be5fe6846f7a15351c1c91a4ae4"
 )
 
 func TestPostUUID(t *testing.T) {
 	tests := []struct {
-		name               string
-		queryParam         string
-		expectedStatus     int
-		expectedLength     int
-		expectedPredicates []func(string) bool
+		url                    string
+		expectedStatus         int
+		expectedWithoutHyphens bool
+		expectedUUID           string
 	}{
 		{
-			name:           "UUID no-hyphens=null",
-			queryParam:     "",
-			expectedStatus: http.StatusOK,
-			expectedLength: 36,
-			expectedPredicates: []func(string) bool{
-				func(s string) bool { return strings.Contains(s, "-") },
-			},
+			url:                    "/programming/uuid",
+			expectedStatus:         http.StatusOK,
+			expectedWithoutHyphens: false,
+			expectedUUID:           UUIDWithHyphens,
 		},
 		{
-			name:           "UUID no-hyphens=false",
-			queryParam:     "?no-hyphens=false",
-			expectedStatus: http.StatusOK,
-			expectedLength: 36,
-			expectedPredicates: []func(string) bool{
-				func(s string) bool { return strings.Contains(s, "-") },
-			},
+			url:                    "/programming/uuid?no-hyphens=false",
+			expectedStatus:         http.StatusOK,
+			expectedWithoutHyphens: false,
+			expectedUUID:           UUIDWithHyphens,
 		},
 		{
-			name:           "UUID no-hyphens=true",
-			queryParam:     "?no-hyphens=true",
-			expectedStatus: http.StatusOK,
-			expectedLength: 32,
-			expectedPredicates: []func(string) bool{
-				func(s string) bool { return !strings.Contains(s, "-") },
-			},
+			url:                    "/programming/uuid?no-hyphens=true",
+			expectedStatus:         http.StatusOK,
+			expectedWithoutHyphens: true,
+			expectedUUID:           UUIDWithoutHyphens,
+		},
+		{
+			url:                    "/programming/uuid?no-hyphens=yes",
+			expectedStatus:         http.StatusOK,
+			expectedWithoutHyphens: false,
+			expectedUUID:           UUIDWithHyphens,
+		},
+		{
+			url:                    "/programming/uuid?blah",
+			expectedStatus:         http.StatusOK,
+			expectedWithoutHyphens: false,
+			expectedUUID:           UUIDWithHyphens,
 		},
 	}
 
 	gin.SetMode(gin.TestMode)
-	router := gin.Default()
-	controller := NewController(programmingLib.NewService())
-	controller.AddRoutes(router.Group("/"))
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			req, _ := http.NewRequest(http.MethodPost, "/programming/uuid"+tt.queryParam, nil)
+		t.Run(tt.url, func(t *testing.T) {
+			router := gin.Default()
+
+			service := NewMockService(t)
+			service.EXPECT().NewUUID(tt.expectedWithoutHyphens).Return(tt.expectedUUID)
+			controller := NewController(service)
+			controller.AddRoutes(router.Group("/"))
+
+			req, _ := http.NewRequest(http.MethodPost, tt.url, nil)
 			w := httptest.NewRecorder()
 			router.ServeHTTP(w, req)
 
-			rsp := Response{}
-			if err := json.Unmarshal(w.Body.Bytes(), &rsp); err != nil {
+			output := Response{}
+			if err := json.Unmarshal(w.Body.Bytes(), &output); err != nil {
 				t.Fatalf("failed to unmarshal response: %v", err)
 			}
 
 			assert.Equal(t, tt.expectedStatus, w.Code)
-			assert.Contains(t, w.Body.String(), "uuid")
-			assert.Len(t, rsp.UUID, tt.expectedLength)
-			for _, pred := range tt.expectedPredicates {
-				assert.True(t, pred(rsp.UUID))
-			}
+			assert.Equal(t, tt.expectedUUID, output.UUID)
 		})
 	}
 }

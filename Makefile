@@ -22,6 +22,7 @@ format: generate
 generate:
 	swag init --generalInfo ./cmd/server/main.go --output ./internal/docs
 	swag fmt
+	mockery
 
 clean:
 	go clean

@@ -42,7 +42,6 @@ func (ctl *TaskController) AddRoutes(r *gin.RouterGroup) {
 //	@Summary		get a list of tasks
 //	@Description	get a list of tasks
 //	@Tags			tasks
-//	@Accept			json
 //	@Produce		json
 //	@Success		200	{object}	[]dto.Task
 //	@Router			/tasks [get]
@@ -60,7 +59,6 @@ func (ctl *TaskController) GetTasks(c *gin.Context) {
 //	@Summary		get a task
 //	@Description	get a task
 //	@Tags			tasks
-//	@Accept			"*/*"
 //	@Produce		json
 //	@Param			id	path		int	true	"task ID"
 //	@Success		200	{object}	dto.Task
@@ -111,7 +109,7 @@ func (ctl *TaskController) InsertTask(c *gin.Context) {
 //	@Summary		update a task
 //	@Description	update a task
 //	@Tags			tasks
-//	@Accept			json
+//	@Accept			application/merge-patch+json
 //	@Product		json
 //	@Param			id		path		int				true	"task ID"
 //	@Param			task	body		dto.UpdateTask	true	"task"
@@ -144,7 +142,6 @@ func (ctl *TaskController) UpdateTask(c *gin.Context) {
 //	@Summary		delete a task
 //	@Description	delete a task
 //	@Tags			tasks
-//	@Accept			"*/*"
 //	@Param			id	path	int	true	"task ID"
 //	@Success		204
 //	@Router			/tasks/{id} [delete]

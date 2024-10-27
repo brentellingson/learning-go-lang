@@ -25,7 +25,6 @@ func (ctl *PingController) AddRoutes(r *gin.RouterGroup) {
 //	@Summary		ping the server
 //	@Description	ping the server
 //	@Tags			healthcheck
-//	@Accept			"*/*"
 //	@Produce		json
 //	@Success		200	{object}	dto.PingResponse
 //	@Router			/ping [get]

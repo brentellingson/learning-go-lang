@@ -18,9 +18,6 @@ const docTemplate = `{
         "/ping": {
             "get": {
                 "description": "ping the server",
-                "consumes": [
-                    "\"*/*\""
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -41,9 +38,6 @@ const docTemplate = `{
         "/tasks": {
             "get": {
                 "description": "get a list of tasks",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -99,9 +93,6 @@ const docTemplate = `{
         "/tasks/{id}": {
             "get": {
                 "description": "get a task",
-                "consumes": [
-                    "\"*/*\""
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -129,9 +120,6 @@ const docTemplate = `{
             },
             "delete": {
                 "description": "delete a task",
-                "consumes": [
-                    "\"*/*\""
-                ],
                 "tags": [
                     "tasks"
                 ],
@@ -154,7 +142,7 @@ const docTemplate = `{
             "patch": {
                 "description": "update a task",
                 "consumes": [
-                    "application/json"
+                    "application/merge-patch+json"
                 ],
                 "tags": [
                     "tasks"

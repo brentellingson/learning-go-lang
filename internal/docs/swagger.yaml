@@ -34,8 +34,6 @@ info:
 paths:
   /ping:
     get:
-      consumes:
-      - '"*/*"'
       description: ping the server
       produces:
       - application/json
@@ -49,8 +47,6 @@ paths:
       - healthcheck
   /tasks:
     get:
-      consumes:
-      - application/json
       description: get a list of tasks
       produces:
       - application/json
@@ -87,8 +83,6 @@ paths:
       - tasks
   /tasks/{id}:
     delete:
-      consumes:
-      - '"*/*"'
       description: delete a task
       parameters:
       - description: task ID
@@ -103,8 +97,6 @@ paths:
       tags:
       - tasks
     get:
-      consumes:
-      - '"*/*"'
       description: get a task
       parameters:
       - description: task ID
@@ -124,7 +116,7 @@ paths:
       - tasks
     patch:
       consumes:
-      - application/json
+      - application/merge-patch+json
       description: update a task
       parameters:
       - description: task ID

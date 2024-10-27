@@ -25,15 +25,73 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ping.Response"
+                            "$ref": "#/definitions/dto.PingResponse"
                         }
                     }
                 }
             }
         },
-        "/programming/uuid": {
+        "/tasks": {
+            "get": {
+                "description": "get a list of tasks",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "get a list of tasks",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.Task"
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
-                "description": "create a new UUID",
+                "description": "insert a task",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "insert a task",
+                "parameters": [
+                    {
+                        "description": "task",
+                        "name": "task",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.InsertTask"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Task"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "get": {
+                "description": "get a task",
                 "consumes": [
                     "\"*/*\""
                 ],
@@ -41,22 +99,83 @@
                     "application/json"
                 ],
                 "tags": [
-                    "programming"
+                    "tasks"
                 ],
-                "summary": "create a new UUID",
+                "summary": "get a task",
                 "parameters": [
                     {
-                        "type": "boolean",
-                        "description": "whether to exclude hyphens in the UUID",
-                        "name": "no-hyphens",
-                        "in": "query"
+                        "type": "integer",
+                        "description": "task ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/programming.Response"
+                            "$ref": "#/definitions/dto.Task"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete a task",
+                "consumes": [
+                    "\"*/*\""
+                ],
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "delete a task",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "task ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a task",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "update a task",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "task ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "task",
+                        "name": "task",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateTask"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Task"
                         }
                     }
                 }
@@ -64,7 +183,18 @@
         }
     },
     "definitions": {
-        "ping.Response": {
+        "dto.InsertTask": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.PingResponse": {
             "type": "object",
             "properties": {
                 "message": {
@@ -72,10 +202,24 @@
                 }
             }
         },
-        "programming.Response": {
+        "dto.Task": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UpdateTask": {
             "type": "object",
             "properties": {
-                "uuid": {
+                "title": {
                     "type": "string"
                 }
             }

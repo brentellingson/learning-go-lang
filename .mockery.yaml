@@ -4,6 +4,6 @@ filename: "mock_{{.InterfaceName | snakecase }}.go"
 inpackage: true
 
 packages:
-  github.com/brentellingson/learning-golang-api/internal/programming:
+  github.com/brentellingson/learning-golang-api/internal/controller:
     config:
       all: true

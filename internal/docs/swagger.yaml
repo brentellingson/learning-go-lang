@@ -1,13 +1,29 @@
 basePath: /api/v1
 definitions:
-  ping.Response:
+  dto.InsertTask:
+    properties:
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  dto.PingResponse:
     properties:
       message:
         type: string
     type: object
-  programming.Response:
+  dto.Task:
     properties:
-      uuid:
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  dto.UpdateTask:
+    properties:
+      title:
         type: string
     type: object
 info:
@@ -27,28 +43,107 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ping.Response'
+            $ref: '#/definitions/dto.PingResponse'
       summary: ping the server
       tags:
       - healthcheck
-  /programming/uuid:
-    post:
+  /tasks:
+    get:
       consumes:
-      - '"*/*"'
-      description: create a new UUID
-      parameters:
-      - description: whether to exclude hyphens in the UUID
-        in: query
-        name: no-hyphens
-        type: boolean
+      - application/json
+      description: get a list of tasks
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/programming.Response'
-      summary: create a new UUID
+            items:
+              $ref: '#/definitions/dto.Task'
+            type: array
+      summary: get a list of tasks
       tags:
-      - programming
+      - tasks
+    post:
+      consumes:
+      - application/json
+      description: insert a task
+      parameters:
+      - description: task
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/dto.InsertTask'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.Task'
+      summary: insert a task
+      tags:
+      - tasks
+  /tasks/{id}:
+    delete:
+      consumes:
+      - '"*/*"'
+      description: delete a task
+      parameters:
+      - description: task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      summary: delete a task
+      tags:
+      - tasks
+    get:
+      consumes:
+      - '"*/*"'
+      description: get a task
+      parameters:
+      - description: task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Task'
+      summary: get a task
+      tags:
+      - tasks
+    patch:
+      consumes:
+      - application/json
+      description: update a task
+      parameters:
+      - description: task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: task
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateTask'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Task'
+      summary: update a task
+      tags:
+      - tasks
 swagger: "2.0"

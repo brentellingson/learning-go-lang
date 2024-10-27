@@ -1,4 +1,4 @@
-.PHONY: build run tvet tidy fmt clean
+.PHONY: docker-run docker-build build run test lint format generate clean
 
 docker-run: docker-build
 	docker run -p 8080:8080 learning-golang-api
@@ -13,7 +13,7 @@ run: format
 	go run ./cmd/server
 
 test: format
-	go test ./...
+	go test ./...  -cover
 
 lint: format
 	go vet ./...

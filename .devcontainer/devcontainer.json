@@ -7,9 +7,11 @@
     "mounts": [
         "type=bind,source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly"
     ],
-    "postStartCommand": "./.devcontainer/start.sh"
+    "postStartCommand": "./.devcontainer/start.sh",
     // Features to add to the dev container. More info: https://containers.dev/features.
-    // "features": {},
+    "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    }
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Use 'postCreateCommand' to run commands after the container is created.

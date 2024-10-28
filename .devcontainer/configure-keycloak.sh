@@ -24,7 +24,11 @@ curl --url http://localhost:${KC_HTTP_PORT}/admin/realms/myrealm/clients \
      --json '{ 
             "clientId": "myclient", 
             "protocol": "openid-connect",
-            "redirectUris": [ "https://www.keycloak.org/app/*", "http://localhost:8080/swagger/oauth2-redirect.html" ],
+            "redirectUris": [
+               "https://www.keycloak.org/app/*",
+               "http://localhost:8080/swagger/oauth2-redirect.html",
+               "http://127.0.0.1:8082/oauth/callback"
+           ],
             "webOrigins": [ "https://www.keycloak.org", "http://localhost:8080" ]
         }'
 

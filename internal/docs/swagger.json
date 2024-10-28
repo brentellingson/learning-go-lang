@@ -30,6 +30,11 @@
         },
         "/tasks": {
             "get": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "get a list of tasks",
                 "produces": [
                     "application/json"
@@ -51,6 +56,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "insert a task",
                 "consumes": [
                     "application/json"
@@ -85,6 +95,11 @@
         },
         "/tasks/{id}": {
             "get": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "get a task",
                 "produces": [
                     "application/json"
@@ -112,6 +127,11 @@
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "delete a task",
                 "tags": [
                     "tasks"
@@ -133,6 +153,11 @@
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "update a task",
                 "consumes": [
                     "application/merge-patch+json"
@@ -211,6 +236,14 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "OAuth2Keycloak": {
+            "type": "oauth2",
+            "flow": "accessCode",
+            "authorizationUrl": "http://localhost:8081/realms/myrealm/protocol/openid-connect/auth",
+            "tokenUrl": "http://localhost:8081/realms/myrealm/protocol/openid-connect/token"
         }
     }
 }

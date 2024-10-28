@@ -37,6 +37,11 @@ const docTemplate = `{
         },
         "/tasks": {
             "get": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "get a list of tasks",
                 "produces": [
                     "application/json"
@@ -58,6 +63,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "insert a task",
                 "consumes": [
                     "application/json"
@@ -92,6 +102,11 @@ const docTemplate = `{
         },
         "/tasks/{id}": {
             "get": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "get a task",
                 "produces": [
                     "application/json"
@@ -119,6 +134,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "delete a task",
                 "tags": [
                     "tasks"
@@ -140,6 +160,11 @@ const docTemplate = `{
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "OAuth2Keycloak": []
+                    }
+                ],
                 "description": "update a task",
                 "consumes": [
                     "application/merge-patch+json"
@@ -218,6 +243,14 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "OAuth2Keycloak": {
+            "type": "oauth2",
+            "flow": "accessCode",
+            "authorizationUrl": "http://localhost:8081/realms/myrealm/protocol/openid-connect/auth",
+            "tokenUrl": "http://localhost:8081/realms/myrealm/protocol/openid-connect/token"
         }
     }
 }`

@@ -45,6 +45,7 @@ func (ctl *TaskController) AddRoutes(r *gin.RouterGroup) {
 //	@Produce		json
 //	@Success		200	{object}	[]dto.Task
 //	@Router			/tasks [get]
+//	@Security		OAuth2Keycloak
 func (ctl *TaskController) GetTasks(c *gin.Context) {
 	tasks, err := ctl.svc.GetTasks(c)
 	if err != nil {
@@ -63,6 +64,8 @@ func (ctl *TaskController) GetTasks(c *gin.Context) {
 //	@Param			id	path		int	true	"task ID"
 //	@Success		200	{object}	dto.Task
 //	@Router			/tasks/{id} [get]
+//
+// @Security		OAuth2Keycloak
 func (ctl *TaskController) GetTask(c *gin.Context) {
 	id := c.Param("id")
 	idx, err := strconv.Atoi(id)
@@ -89,6 +92,7 @@ func (ctl *TaskController) GetTask(c *gin.Context) {
 //	@Param			task	body		dto.InsertTask	true	"task"
 //	@Success		201		{object}	dto.Task
 //	@Router			/tasks [post]
+//	@Security		OAuth2Keycloak
 func (ctl *TaskController) InsertTask(c *gin.Context) {
 	var task dto.InsertTask
 	if err := c.ShouldBindJSON(&task); err != nil {
@@ -115,6 +119,7 @@ func (ctl *TaskController) InsertTask(c *gin.Context) {
 //	@Param			task	body		dto.UpdateTask	true	"task"
 //	@Success		200		{object}	dto.Task
 //	@Router			/tasks/{id} [patch]
+//	@Security		OAuth2Keycloak
 func (ctl *TaskController) UpdateTask(c *gin.Context) {
 	id := c.Param("id")
 	idx, err := strconv.Atoi(id)
@@ -145,6 +150,7 @@ func (ctl *TaskController) UpdateTask(c *gin.Context) {
 //	@Param			id	path	int	true	"task ID"
 //	@Success		204
 //	@Router			/tasks/{id} [delete]
+//	@Security		OAuth2Keycloak
 func (ctl *TaskController) DeleteTask(c *gin.Context) {
 	id := c.Param("id")
 	idx, err := strconv.Atoi(id)

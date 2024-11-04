@@ -5,7 +5,8 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "./.devcontainer/install-tools.sh && ./.devcontainer/configure-keycloak.sh",
+    "onCreateCommand": "sudo chown vscode:golang /go/pkg && sudo chmod g+s /go/pkg",
+    "postCreateCommand": "./scripts/install-tools.sh && ./scripts/configure-keycloak.sh",
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },

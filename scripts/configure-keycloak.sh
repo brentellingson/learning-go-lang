@@ -13,6 +13,12 @@ TOKEN=$(curl --url http://localhost:${KC_HTTP_PORT}/realms/master/protocol/openi
              --silent \
           | jq -r '.access_token')
 
+# delete the keycloak realm if it exists
+
+curl --url http://localhost:${KC_HTTP_PORT}/admin/realms/myrealm \
+     --header "Authorization: Bearer $TOKEN" \
+     --request DELETE
+
 # Create a keycloak realm
 curl --url http://localhost:${KC_HTTP_PORT}/admin/realms \
      --header "Authorization: Bearer $TOKEN" \

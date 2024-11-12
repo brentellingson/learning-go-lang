@@ -11,15 +11,16 @@ See:
 ## Uses RFC9068 JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens
 
 * see: https://datatracker.ietf.org/doc/html/rfc9068
+* see: https://datatracker.ietf.org/doc/html/rfc8414
 * inspiration: https://github.com/coreos/go-oidc
 * inspiration: https://github.com/auth0/go-jwt-middleware
-
 * use: https://github.com/golang-jwt/jwt
-* use: 
+* use: https://github.com/MicahParks/keyfunc/v3
+
 
 ## Keycloak URLs
 
-Sign into Account Console:
+Sign into Realm with KeyCloack UI:
 
 * url: http://localhost:8081/realms/myrealm/account
 * username: myuser
@@ -31,7 +32,7 @@ Sign into Admin Console:
 * username: admin
 * password: admin
 
-Sign in with OAuth:
+Get OAuth Client with Keycloak Client:
 
 * url:  https://www.keycloak.org/app/#url=http://localhost:8081&realm=myrealm&client=myclient
 * Keycloak URL:  http://localhost:8081
@@ -39,4 +40,12 @@ Sign in with OAuth:
 * Keycloak Client: myclient
 * username: myuser
 * password: mypassword
+
+OAuth Parameters:
+
+* issuer: http://localhost:8081/realms/myrealm
+* well known endpoint: http://localhost:8081/realms/myrealm/.well-known/oauth-authorization-server
+* JWKS URl: http://localhost:8081/realms/myrealm/protocol/openid-connect/certs
+* Auth Endpoint: http://localhost:8081/realms/myrealm/protocol/openid-connect/auth
+* Token Endpoint: http://localhost:8081/realms/myrealm/protocol/openid-connect/token
 

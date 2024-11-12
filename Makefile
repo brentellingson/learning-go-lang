@@ -17,15 +17,10 @@ test: format
 
 lint: format
 	golangci-lint run
-	go vet ./...
-	staticcheck ./...
-	revive -formatter friendly ./...
 
 format: generate
-	go mod tidy
 	swag fmt
-	go fmt ./...
-	goimports -l -w .
+	gofumpt -l -w .
 
 generate: restore
 	swag init --generalInfo ./cmd/server/main.go --output ./internal/docs
@@ -33,7 +28,5 @@ generate: restore
 
 restore:
 	go get -v ./...
-
-clean:
-	go clean
+	go mod tidy -v
 

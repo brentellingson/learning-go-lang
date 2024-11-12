@@ -4,7 +4,7 @@ filename: "mock_{{.InterfaceName | snakecase }}.go"
 inpackage: true
 
 packages:
-  github.com/brentellingson/learning-golang-api:
+  github.com/brentellingson/learning-golang-api/internal/controller:
     config:
       recursive: true
       all: true

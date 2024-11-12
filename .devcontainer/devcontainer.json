@@ -6,9 +6,27 @@
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "onCreateCommand": "sudo chown vscode:golang /go/pkg && sudo chmod g+s /go/pkg",
-    "postCreateCommand": "./scripts/install-tools.sh && ./scripts/configure-keycloak.sh",
+    "postCreateCommand": "./scripts/configure-keycloak.sh",
     "features": {
-        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        "ghcr.io/guiyomh/features/golangci-lint:0": {},
+        "ghcr.io/marcozac/devcontainer-features/gofumpt:1": {},
+        "ghcr.io/brokeyourbike/devcontainer-features/mockery-go:0": {}
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "go.lintTool": "golangci-lint",
+                "go.lintFlags": [
+                    "--fast",
+                    "--allow-parallel-runners"
+                ],
+                "go.useLanguageServer": true,
+                "gopls": {
+                    "formatting.gofumpt": true
+                }
+            }
+        }
     },
     "forwardPorts": [
         8080,

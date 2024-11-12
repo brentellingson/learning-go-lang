@@ -8,6 +8,15 @@ See:
 * https://github.com/renato0307/learning-go-cli
 * https://github.com/renato0307/learning-go-api-iac
 
+## Uses RFC9068 JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens
+
+* see: https://datatracker.ietf.org/doc/html/rfc9068
+* inspiration: https://github.com/coreos/go-oidc
+* inspiration: https://github.com/auth0/go-jwt-middleware
+
+* use: https://github.com/golang-jwt/jwt
+* use: 
+
 ## Keycloak URLs
 
 Sign into Account Console:
@@ -30,3 +39,4 @@ Sign in with OAuth:
 * Keycloak Client: myclient
 * username: myuser
 * password: mypassword
+

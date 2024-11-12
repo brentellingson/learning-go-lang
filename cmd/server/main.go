@@ -2,6 +2,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/brentellingson/learning-golang-api/internal/controller"
@@ -37,5 +38,5 @@ func main() {
 		taskController.AddRoutes(v1)
 	}
 
-	router.Run(":8080")
+	log.Fatal(router.Run(":8080"))
 }

@@ -4,7 +4,7 @@ set -eux
 
 # KEYCLOAK_URL=http://localhost:8081
 
-# wait 60 seconds for keycloak to start
+# wait up to 60 seconds for keycloak to start
 timeout 60 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:${KC_HTTP_PORT}/admin/master/console/)" != "200" ]]; do sleep 1; done'
 
 # Get Keycloak Access Token
@@ -14,7 +14,6 @@ TOKEN=$(curl --url http://localhost:${KC_HTTP_PORT}/realms/master/protocol/openi
           | jq -r '.access_token')
 
 # delete the keycloak realm if it exists
-
 curl --url http://localhost:${KC_HTTP_PORT}/admin/realms/myrealm \
      --header "Authorization: Bearer $TOKEN" \
      --request DELETE

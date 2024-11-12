@@ -5,7 +5,6 @@ package main
 import (
 	"context"
 	"crypto/tls"
-	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -34,12 +33,14 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("Token: %s", tok)
+	log.Printf("Token: %s", tok.AccessToken)
 
 	// show succes page
 	msg := "<p><strong>Success!</strong></p>"
 	msg = msg + "<p>You are authenticated and can now return to the CLI.</p>"
-	fmt.Fprintf(w, msg)
+	if _, err := w.Write([]byte(msg)); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {
@@ -69,11 +70,12 @@ func main() {
 
 	log.Println(color.CyanString("You will now be taken to your browser for authentication"))
 	time.Sleep(1 * time.Second)
-	open.Run(url)
+	if err := open.Run(url); err != nil {
+		log.Println(color.RedString("Failed to open browser to URL %s", url))
+	}
 	time.Sleep(1 * time.Second)
 	log.Printf("Authentication URL: %s\n", url)
 
 	http.HandleFunc("/oauth/callback", callbackHandler)
 	log.Fatal(http.ListenAndServe(":8082", nil))
-
 }

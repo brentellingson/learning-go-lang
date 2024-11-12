@@ -30,11 +30,11 @@ func NewTaskController(svc TaskInterface) *TaskController {
 
 // AddRoutes adds the task routes to the router.
 func (ctl *TaskController) AddRoutes(r *gin.RouterGroup) {
-	r.GET("/tasks", ctl.GetTasks)
-	r.GET("/tasks/:id", ctl.GetTask)
-	r.POST("/tasks", ctl.InsertTask)
-	r.PATCH("/tasks/:id", ctl.UpdateTask)
-	r.DELETE("/tasks/:id", ctl.DeleteTask)
+	r.GET("/", ctl.GetTasks)
+	r.GET("/:id", ctl.GetTask)
+	r.POST("/", ctl.InsertTask)
+	r.PATCH("/:id", ctl.UpdateTask)
+	r.DELETE("/:id", ctl.DeleteTask)
 }
 
 // GetTasks godoc

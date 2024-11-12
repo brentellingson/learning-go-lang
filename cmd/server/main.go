@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/brentellingson/learning-golang-api/internal/controller"
+	"github.com/brentellingson/learning-golang-api/internal/controller/middleware"
 	_ "github.com/brentellingson/learning-golang-api/internal/docs"
 	"github.com/brentellingson/learning-golang-api/internal/service"
 
@@ -35,7 +36,11 @@ func main() {
 	v1 := router.Group("/api/v1/")
 	{
 		pingController.AddRoutes(v1)
-		taskController.AddRoutes(v1)
+		tasks := v1.Group("/tasks")
+		{
+			tasks.Use(middleware.JWTValidator("http://localhost:8081/realms/myrealm", "http://localhost:8081/realms/myrealm/protocol/openid-connect/certs"))
+			taskController.AddRoutes(tasks)
+		}
 	}
 
 	log.Fatal(router.Run(":8080"))
